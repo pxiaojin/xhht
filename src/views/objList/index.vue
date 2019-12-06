@@ -1,7 +1,8 @@
 <template>
-  <div id="box">
+  <div id="home">
     <!-- 搜索 -->
     <el-card id="search">
+      <el-page-header @back="goBack" content="项目列表"></el-page-header>
       <el-input
         placeholder="请输入内容"
         v-model="keyword"
@@ -21,7 +22,7 @@
             <span style="margin-left: 10px">{{ scope.row.date }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="版本号" width="180">
+        <el-table-column label="当前版本" width="180">
           <template slot-scope="scope">
             <i class="el-icon-time"></i>
             <span style="margin-left: 10px">{{ scope.row.date }}</span>
@@ -56,6 +57,7 @@
             <el-button size="mini" @click="handleDetail(scope.row.name)">查看</el-button>
             <el-button size="mini" type="primary" @click="handleUpdate(scope.$index, scope.row)">上传</el-button>
             <el-button size="mini" type="primary" @click="handleCorrect(scope.row.name)">审批</el-button>
+            <el-button size="mini">下载</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -64,6 +66,7 @@
 </template>
 
 <script type="text/javascript">
+// import {mapMutations} from 'vuex'
 export default {
   data() {
     return {
@@ -116,13 +119,16 @@ export default {
       handleUpdate(index, row) {
         // console.log(index, row);
         this.$router.push('/update')
+      },
+      goBack() {
+        this.$router.go(-1)
       }
     }
   }
 </script>
 
 <style scoped lang="less">
-#box {
+#home {
   height: 100%;
 }
 #search {
@@ -131,5 +137,8 @@ export default {
 #list {
   margin-top: 10px;
   height: 100%;
+}
+.el-page-header {
+  margin-bottom: 20px;
 }
 </style>
